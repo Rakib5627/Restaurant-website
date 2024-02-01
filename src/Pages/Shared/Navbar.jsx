@@ -1,16 +1,38 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
+import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../../hooks/useCart";
 
 
 const Navbar = () => {
 
+    const { user, logOut } = useContext(AuthContext);
+    const [cart] = useCart()
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error));
+    }
+
     const navOptions = <>
-        <li><a>Item 555</a></li>
-        <li tabIndex={0}>
-            <a className="justify-between">
-                Parent
-                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
-            </a>
-        </li>
-        <li><a>Item 3</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/menu">Our Menu</Link></li>
+        <li><Link to="/order/salad">Order Food</Link></li>
+        <li><Link to="/dashboard/cart">
+                <FaShoppingCart/>
+                <div className="badge bg-gray-500 text-white">{cart.length}</div>
+        </Link></li>
+        {
+            user ? <>
+               <li> <Link><button onClick={handleLogOut} className="">LogOut</button></Link>
+                {/* <span>{user?.displayName}</span> */}
+                </li>
+            </> : <>
+                <li><Link to="/login">Login</Link></li>
+            </>
+        }
     </>
 
     return (
