@@ -13,9 +13,7 @@ const CheckoutForm = () => {
 
         if (!stripe || !elements) {
             return
-        }
-
-      
+        }  
 
     }
  
@@ -45,7 +43,7 @@ const CheckoutForm = () => {
             <button className="btn btn-sm btn-primary my-4" type="submit" >
                 Pay
             </button>
-            <p className="text-red-600"></p>
+            <p className="text-red-700"></p>
            
         </form>
     );
